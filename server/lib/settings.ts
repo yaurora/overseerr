@@ -86,6 +86,7 @@ export interface MainSettings {
   };
   hideAvailable: boolean;
   localLogin: boolean;
+  plexLogin: boolean;
   newPlexLogin: boolean;
   region: string;
   originalLanguage: string;
@@ -103,6 +104,7 @@ interface FullPublicSettings extends PublicSettings {
   applicationUrl: string;
   hideAvailable: boolean;
   localLogin: boolean;
+  plexLogin: boolean;
   movie4kEnabled: boolean;
   series4kEnabled: boolean;
   region: string;
@@ -265,6 +267,7 @@ class Settings {
         },
         hideAvailable: false,
         localLogin: true,
+        plexLogin: true,
         newPlexLogin: true,
         region: '',
         originalLanguage: '',
@@ -436,6 +439,7 @@ class Settings {
       applicationUrl: this.data.main.applicationUrl,
       hideAvailable: this.data.main.hideAvailable,
       localLogin: this.data.main.localLogin,
+      plexLogin: this.data.main.plexLogin,
       movie4kEnabled: this.data.radarr.some(
         (radarr) => radarr.is4k && radarr.isDefault
       ),

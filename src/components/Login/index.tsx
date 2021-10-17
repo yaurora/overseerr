@@ -117,33 +117,45 @@ const Login: React.FC = () => {
             <Accordion single atLeastOne>
               {({ openIndexes, handleClick, AccordionContent }) => (
                 <>
-                  <button
-                    className={`font-bold w-full py-2 text-sm text-center text-gray-400 transition-colors duration-200 bg-gray-800 cursor-default focus:outline-none bg-opacity-70 sm:rounded-t-lg ${
-                      openIndexes.includes(0) && 'text-indigo-500'
-                    } ${
-                      settings.currentSettings.localLogin &&
-                      'hover:bg-gray-700 hover:cursor-pointer'
-                    }`}
-                    onClick={() => handleClick(0)}
-                    disabled={!settings.currentSettings.localLogin}
-                  >
-                    {intl.formatMessage(messages.signinwithplex)}
-                  </button>
-                  <AccordionContent isOpen={openIndexes.includes(0)}>
-                    <div className="px-10 py-8">
-                      <PlexLoginButton
-                        isProcessing={isProcessing}
-                        onAuthToken={(authToken) => setAuthToken(authToken)}
-                      />
-                    </div>
-                  </AccordionContent>
-                  {settings.currentSettings.localLogin && (
-                    <div>
+                  {settings.currentSettings.plexLogin && (
+                    <>
                       <button
-                        className={`font-bold w-full py-2 text-sm text-center text-gray-400 transition-colors duration-200 bg-gray-800 cursor-default focus:outline-none bg-opacity-70 hover:bg-gray-700 hover:cursor-pointer ${
-                          openIndexes.includes(1)
+                        className={`font-bold w-full py-2 text-sm text-center text-gray-400 transition-colors duration-200 bg-gray-800 cursor-default focus:outline-none bg-opacity-70 sm:rounded-t-lg ${
+                          openIndexes.includes(0) ||
+                          !settings.currentSettings.localLogin
+                            ? 'text-indigo-500'
+                            : ''
+                        } ${
+                          settings.currentSettings.localLogin
+                            ? 'hover:bg-gray-700 hover:cursor-pointer'
+                            : ''
+                        }`}
+                        onClick={() => handleClick(0)}
+                      >
+                        {intl.formatMessage(messages.signinwithplex)}
+                      </button>
+                      <AccordionContent isOpen={openIndexes.includes(0)}>
+                        <div className="px-10 py-8">
+                          <PlexLoginButton
+                            isProcessing={isProcessing}
+                            onAuthToken={(authToken) => setAuthToken(authToken)}
+                          />
+                        </div>
+                      </AccordionContent>
+                    </>
+                  )}
+                  {settings.currentSettings.localLogin && (
+                    <>
+                      <button
+                        className={`font-bold w-full py-2 text-sm text-center text-gray-400 transition-colors duration-200 bg-gray-800 cursor-default focus:outline-none bg-opacity-70 ${
+                          openIndexes.includes(1) ||
+                          !settings.currentSettings.plexLogin
                             ? 'text-indigo-500'
                             : 'sm:rounded-b-lg'
+                        } ${
+                          settings.currentSettings.plexLogin
+                            ? 'hover:bg-gray-700 hover:cursor-pointer'
+                            : 'sm:rounded-t-lg'
                         }`}
                         onClick={() => handleClick(1)}
                       >
@@ -152,12 +164,17 @@ const Login: React.FC = () => {
                             settings.currentSettings.applicationTitle,
                         })}
                       </button>
-                      <AccordionContent isOpen={openIndexes.includes(1)}>
+                      <AccordionContent
+                        isOpen={
+                          openIndexes.includes(1) ||
+                          !settings.currentSettings.plexLogin
+                        }
+                      >
                         <div className="px-10 py-8">
                           <LocalLogin revalidate={revalidate} />
                         </div>
                       </AccordionContent>
-                    </div>
+                    </>
                   )}
                 </>
               )}
