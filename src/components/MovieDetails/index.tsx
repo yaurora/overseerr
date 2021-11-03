@@ -352,7 +352,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie }) => {
                 <ExclamationIcon />
               </Button>
             )}
-          {hasPermission(Permission.MANAGE_REQUESTS) && (
+          {hasPermission(Permission.MANAGE_REQUESTS) && data.mediaInfo && (
             <Button
               buttonType="default"
               className="relative ml-2 first:ml-0"
