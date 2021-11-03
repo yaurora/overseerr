@@ -225,6 +225,21 @@ settingsRoutes.post('/plex/sync', (req, res) => {
   return res.status(200).json(plexFullScanner.status());
 });
 
+settingsRoutes.get('/tautulli', (_req, res) => {
+  const settings = getSettings();
+
+  res.status(200).json(settings.tautulli);
+});
+
+settingsRoutes.post('/tautulli', async (req, res) => {
+  const settings = getSettings();
+
+  Object.assign(settings.tautulli, req.body);
+  settings.save();
+
+  return res.status(200).json(settings.tautulli);
+});
+
 settingsRoutes.get(
   '/logs',
   rateLimit({ windowMs: 60 * 1000, max: 50 }),
