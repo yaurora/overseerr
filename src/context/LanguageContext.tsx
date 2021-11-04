@@ -14,6 +14,7 @@ export type AvailableLocale =
   | 'hu'
   | 'nb-NO'
   | 'nl'
+  | 'pl'
   | 'pt-BR'
   | 'pt-PT'
   | 'ru'
@@ -71,6 +72,10 @@ export const availableLanguages: AvailableLanguageObject = {
   'nb-NO': {
     code: 'nb-NO',
     display: 'Norsk Bokmål',
+  },
+  pl: {
+    code: 'pl',
+    display: 'Polski',
   },
   'pt-BR': {
     code: 'pt-BR',
