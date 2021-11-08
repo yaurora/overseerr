@@ -47,7 +47,7 @@ const messages = defineMessages({
   accounttype: 'Type',
   role: 'Role',
   created: 'Joined',
-  bulkedit: 'Bulk Edit',
+  bulkedit: 'Edit Permissions',
   owner: 'Owner',
   admin: 'Admin',
   plexuser: 'Plex User',
@@ -58,7 +58,6 @@ const messages = defineMessages({
     'Are you sure you want to delete this user? All of their request data will be permanently removed.',
   localuser: 'Local User',
   createlocaluser: 'Create User',
-  creating: 'Creating User…',
   validationpasswordminchars:
     'Password is too short; should be a minimum of 8 characters',
   usercreatedfailed: 'Something went wrong while creating the user.',
@@ -341,8 +340,8 @@ const UserList: React.FC = () => {
                 onOk={() => handleSubmit()}
                 okText={
                   isSubmitting
-                    ? intl.formatMessage(messages.creating)
-                    : intl.formatMessage(messages.createlocaluser)
+                    ? intl.formatMessage(globalMessages.creating)
+                    : intl.formatMessage(globalMessages.create)
                 }
                 okDisabled={isSubmitting || !isValid}
                 okButtonType="primary"
