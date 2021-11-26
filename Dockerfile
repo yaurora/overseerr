@@ -3,7 +3,9 @@ FROM node:14.18-alpine AS BUILD_IMAGE
 WORKDIR /app
 
 ARG TARGETPLATFORM
-ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
+ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64} 
+ENV httpProxy
+ENV httpsProxy
 
 RUN \
   case "${TARGETPLATFORM}" in \
@@ -43,6 +45,7 @@ RUN apk add --no-cache tzdata tini
 COPY --from=BUILD_IMAGE /app ./
 
 ENTRYPOINT [ "/sbin/tini", "--" ]
+RUN yarn config set httpProxy $httpProxy && yarn config set httpsProxy $httpsProxy
 CMD [ "yarn", "start" ]
 
 EXPOSE 5055
