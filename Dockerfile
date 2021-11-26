@@ -4,8 +4,8 @@ WORKDIR /app
 
 ARG TARGETPLATFORM
 ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64} 
-ENV httpProxy
-ENV httpsProxy
+ENV HTTP_PROXY
+ENV HTTPS_PROXY
 
 RUN \
   case "${TARGETPLATFORM}" in \
@@ -45,7 +45,7 @@ RUN apk add --no-cache tzdata tini
 COPY --from=BUILD_IMAGE /app ./
 
 ENTRYPOINT [ "/sbin/tini", "--" ]
-RUN yarn config set httpProxy $httpProxy && yarn config set httpsProxy $httpsProxy
+RUN yarn config set httpProxy $HTTP_PROXY && yarn config set httpsProxy $HTTPS_PROXY
 CMD [ "yarn", "start" ]
 
 EXPOSE 5055
